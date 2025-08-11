@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Developer Toolbox</title>
+  <style>
+    :root {
+      --bg: #0f1220;
+      --panel: #161a2b;
+      --panel-2: #1d2238;
+      --text: #e6e9f4;
+      --muted: #a8b0cf;
+      --accent: #7aa2ff;
+      --accent-2: #63e6be;
+      --danger: #ff6b6b;
+      --warn: #ffd166;
+      --radius: 14px;
+      --gap: 14px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+      --mono: "SFMono-Regular", Consolas, Monaco, Menlo, monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 800px at 80% -200px, rgba(122, 162, 255, .25), transparent 60%),
+        radial-gradient(900px 700px at -200px 20%, rgba(99, 230, 190, .12), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--sans)
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(15, 18, 32, .8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #232844;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    header h1 {
+      font-size: 21px;
+      margin: 0;
+      letter-spacing: .3px
+    }
+
+    header .search {
+      margin-left: auto;
+    }
+
+    .search input {
+      width: 280px;
+      max-width: 45vw;
+      padding: 10px 12px;
+      border-radius: 10px;
+      outline: none;
+      border: 1px solid #2a3156;
+      background: #0f1326;
+      color: var(--text)
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: var(--gap);
+      padding: var(--gap)
+    }
+
+    aside {
+      background: var(--panel);
+      border: 1px solid #232844;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      height: calc(100dvh - 74px);
+      position: sticky;
+      top: 74px;
+      overflow: auto
+    }
+
+    main {
+      min-height: calc(100dvh - 74px)
+    }
+
+    .brand {
+      padding: 14px 14px 0;
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .tool-list {
+      list-style: none;
+      padding: 8px;
+      margin: 0;
+      display: grid;
+      gap: 8px
+    }
+
+    .tool-list button {
+      width: 100%;
+      text-align: left;
+      border: none;
+      padding: 12px;
+      border-radius: 12px;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      transition: .15s ease;
+      border: 1px solid transparent
+    }
+
+    .tool-list button:hover {
+      background: var(--panel-2)
+    }
+
+    .tool-list button.active {
+      background: linear-gradient(180deg, #1c2342, #141a31);
+      border-color: #2d3561
+    }
+
+    .section {
+      background: var(--panel);
+      border: 1px solid #232844;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      margin-bottom: var(--gap)
+    }
+
+    .section h2 {
+      margin: 0 0 8px
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap)
+    }
+
+    textarea,
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #2a3156;
+      outline: none;
+      background: #0f1326;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 13px
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical
+    }
+
+    .btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 10px 0 0
+    }
+
+    .btn {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #2a3156;
+      background: #121832;
+      color: var(--text);
+      cursor: pointer
+    }
+
+    .btn.primary {
+      background: linear-gradient(180deg, #3b61ff, #2746dd);
+      border-color: #3152ff
+    }
+
+    .btn.ghost {
+      background: transparent
+    }
+
+    .btn.warn {
+      background: #2b2414;
+      border-color: #5a4b1a;
+      color: #ffd166
+    }
+
+    .btn.danger {
+      background: #2b1518;
+      border-color: #6b232a;
+      color: #ff7b86
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap)
+    }
+
+    .kbd {
+      font-family: var(--mono);
+      font-size: 12px;
+      border: 1px solid #2a3156;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: #0f1326;
+      color: var(--muted)
+    }
+
+    .label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px
+    }
+
+    .footer {
+      color: var(--muted);
+      font-size: 12px;
+      padding: 8px 2px 16px
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center
+    }
+
+    .output {
+      background: #0f1326;
+      border: 1px solid #2a3156;
+      border-radius: 10px;
+      padding: 10px;
+      min-height: 120px;
+      font-family: var(--mono);
+      overflow: auto
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap)
+    }
+
+    @media (max-width: 1080px) {
+      .layout {
+        grid-template-columns: 1fr
+      }
+
+      aside {
+        position: static;
+        height: auto
+      }
+
+      .row,
+      .two-col,
+      .grid-3 {
+        grid-template-columns: 1fr
+      }
+
+      .search input {
+        max-width: 100%;
+        width: 100%
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>🧰 The Developer Toolbox</h1>
+    <div class="search">
+      <input v-model="q" type="text" placeholder="Quick switch: type to filter tools (e.g. base64, csv, json)..." />
+    </div>
+  </header>
+
+  <div id="app" class="layout">
+    <aside>
+      <div class="brand">TOOLS</div>
+      <ul class="tool-list">        
+        <li v-for="t in filteredTools" :key="t.key">
+          <button :class="{active: current===t.key}" @click="current=t.key">{{t.icon}} {{t.name}}</button>
+        </li>
+      </ul>
+    </aside>
+
+    <main>
+      <!-- Base64 Encoder/Decoder -->
+      <section v-if="current==='base64'" class="section">
+        <h2>Base64 / Base64URL Encode & Decode</h2>
+        <div class="row">
+          <div>
+            <div class="label">Input</div>
+            <textarea v-model="base64.input" placeholder="Type or paste text…"
+              @paste="handlePaste($event, autoBase64)"></textarea>
+            <div class="btns">
+              <button class="btn primary" @click="encodeBase64(false)">Encode (standard)</button>
+              <button class="btn" @click="encodeBase64(true)">Encode (URL-safe)</button>
+              <button class="btn" @click="decodeBase64(false)">Decode (standard)</button>
+              <button class="btn" @click="decodeBase64(true)">Decode (URL-safe)</button>
+              <button class="btn ghost" @click="copyToClipboard(base64.output)">Copy output</button>
+              <button class="btn ghost" @click="swapIO('base64')">Swap</button>
+              <button class="btn ghost" @click="clearIO('base64')">Clear</button>
+            </div>
+          </div>
+          <div>
+            <div class="label">Output</div>
+            <textarea v-model="base64.output" placeholder="Result shows here…" readonly></textarea>
+          </div>
+        </div>
+        <p class="footer">Uses UTF‑8 encode/decode. Tries to auto-detect on paste and decode if possible; otherwise it
+          will encode.</p>
+      </section>
+
+      <!-- CSV ⇄ JSON Converter -->
+      <section v-if="current==='csvjson'" class="section">
+        <h2>CSV ⇄ JSON Converter</h2>
+        <div class="two-col">
+          <div>
+            <div class="label">Input (CSV or JSON)</div>
+            <textarea v-model="csvjson.input"
+              placeholder='CSV example:\nname,age\nAlice,30\nBob,28\n\nJSON example:\n[{"name":"Alice","age":30},{"name":"Bob","age":28}]'
+              @paste="handlePaste($event, autoCSVJSON)"></textarea>
+            <div class="btns">
+              <button class="btn primary" @click="toJSON">CSV → JSON</button>
+              <button class="btn primary" @click="toCSV">JSON → CSV</button>
+              <select v-model="csvjson.delim" title="CSV delimiter">
+                <option value="auto">Autodetect (default)</option>
+                <option value=",">Comma (,)</option>
+                <option value=";">Semicolon (;)</option>
+                <option value="\t">Tab (\t)</option>
+                <option value="|">Pipe (|)</option>
+              </select>
+              <label class="kbd"><input type="checkbox" v-model="csvjson.headers" /> First row has headers</label>
+              <button class="btn ghost" @click="copyToClipboard(csvjson.output)">Copy output</button>
+              <button class="btn ghost" @click="download('output', csvjson.output)">Download</button>
+              <button class="btn ghost" @click="clearIO('csvjson')">Clear</button>
+            </div>
+          </div>
+          <div>
+            <div class="label">Output</div>
+            <textarea v-model="csvjson.output" readonly placeholder="Result shows here…"></textarea>
+          </div>
+        </div>
+        <p class="footer">CSV parser supports quotes, escaped quotes, newlines inside quoted fields, and custom
+          delimiter. When set to Autodetect, the delimiter is inferred from the first lines.</p>
+      </section>
+
+      <!-- JSON Format / Minify / Validate -->
+      <section v-if="current==='jsonfmt'" class="section">
+        <h2>JSON Pretty / Minify / Validate</h2>
+        <div class="row">
+          <div>
+            <div class="label">JSON Input</div>
+            <textarea v-model="jsonfmt.input" placeholder='{"hello":"world"}'
+              @paste="handlePaste($event, autoJSON)"></textarea>
+            <div class="btns">
+              <button class="btn primary" @click="prettyJSON">Pretty</button>
+              <button class="btn" @click="minifyJSON">Minify</button>
+              <button class="btn" @click="unescapeJSONString">Unescape JSON string</button>
+              <button class="btn" @click="escapeJSONString">Escape as JSON string</button>
+              <button class="btn ghost" @click="copyToClipboard(jsonfmt.output)">Copy output</button>
+              <button class="btn ghost" @click="swapIO('jsonfmt')">Swap</button>
+              <button class="btn ghost" @click="clearIO('jsonfmt')">Clear</button>
+            </div>
+          </div>
+          <div>
+            <div class="label">Output / Errors</div>
+            <textarea v-model="jsonfmt.output" readonly placeholder="Formatted JSON or error appears here…"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- URL Encode / Decode -->
+      <section v-if="current==='url'" class="section">
+        <h2>URL Encode / Decode</h2>
+        <div class="row">
+          <div>
+            <div class="label">Input</div>
+            <textarea v-model="urltool.input" placeholder="Type or paste text/URL…"
+              @paste="handlePaste($event, autoURL)"></textarea>
+            <div class="btns">
+              <button class="btn primary" @click="urltool.output = encodeURIComponent(urltool.input)">Encode</button>
+              <button class="btn" @click="safeDecodeURIComponent">Decode</button>
+              <button class="btn ghost" @click="copyToClipboard(urltool.output)">Copy output</button>
+              <button class="btn ghost" @click="swapIO('urltool')">Swap</button>
+              <button class="btn ghost" @click="clearIO('urltool')">Clear</button>
+            </div>
+          </div>
+          <div>
+            <div class="label">Output</div>
+            <textarea v-model="urltool.output" readonly></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- HTML Encode / Decode -->
+      <section v-if="current==='html'" class="section">
+        <h2>HTML Encode / Decode</h2>
+        <div class="row">
+          <div>
+            <div class="label">Input</div>
+            <textarea v-model="htmltool.input" placeholder="Paste raw HTML or text…"
+              @paste="handlePaste($event, autoHTML)"></textarea>
+            <div class="btns">
+              <button class="btn primary" @click="htmlEncode">Encode (&lt; → &amp;lt;)</button>
+              <button class="btn" @click="htmlDecode">Decode (&amp;lt; → &lt;)</button>
+              <button class="btn ghost" @click="copyToClipboard(htmltool.output)">Copy</button>
+              <button class="btn ghost" @click="swapIO('htmltool')">Swap</button>
+              <button class="btn ghost" @click="clearIO('htmltool')">Clear</button>
+            </div>
+          </div>
+          <div>
+            <div class="label">Output</div>
+            <textarea v-model="htmltool.output" readonly placeholder="Result shows here…"></textarea>
+          </div>
+        </div>
+        <p class="footer">Safe DOM-based encoder/decoder. Auto-decides on paste: if it looks like entities
+          (&amp;lt;,&amp;gt;,&amp;amp;) it decodes, otherwise encodes.</p>
+      </section>
+
+      <!-- UUID v4 Generator -->
+      <section v-if="current==='uuid'" class="section">
+        <h2>UUID v4 Generator</h2>
+        <div class="input-row">
+          <input type="number" v-model.number="uuid.count" min="1" max="1000" />
+          <button class="btn primary" @click="genUUIDs">Generate</button>
+          <button class="btn ghost" @click="copyToClipboard(uuid.output)">Copy</button>
+          <button class="btn ghost" @click="download('uuids.txt', uuid.output)">Download</button>
+          <button class="btn ghost" @click="uuid.output=''">Clear</button>
+        </div>
+        <div class="output" style="margin-top:10px; white-space:pre">{{uuid.output}}</div>
+      </section>
+
+      <!-- Hash (SHA*) -->
+      <section v-if="current==='hash'" class="section">
+        <h2>Hash (SHA‑1/256/384/512)</h2>
+        <div class="two-col">
+          <div>
+            <div class="label">Text to hash</div>
+            <textarea v-model="hash.input" placeholder="Type or paste text…"
+              @paste="handlePaste($event, digest)"></textarea>
+            <div class="btns">
+              <select v-model="hash.algo">
+                <option>SHA-256</option>
+                <option>SHA-1</option>
+                <option>SHA-384</option>
+                <option>SHA-512</option>
+              </select>
+              <button class="btn primary" @click="digest">Digest</button>
+              <button class="btn ghost" @click="copyToClipboard(hash.output)">Copy</button>
+              <button class="btn ghost" @click="clearIO('hash')">Clear</button>
+            </div>
+          </div>
+          <div>
+            <div class="label">Hex output</div>
+            <textarea v-model="hash.output" readonly></textarea>
+          </div>
+        </div>
+        <p class="footer">Uses Web Crypto API (SubtleCrypto). Not suitable for password storage; use a KDF like
+          scrypt/Argon2 for that.</p>
+      </section>
+
+      <!-- JWT Decode -->
+      <section v-if="current==='jwt'" class="section">
+        <h2>JWT Decode (Header & Payload)</h2>
+        <div class="row">
+          <div>
+            <div class="label">JWT</div>
+            <textarea v-model="jwt.input" placeholder="Paste a JWT (xxxxx.yyyyy.zzzzz)…"
+              @paste="handlePaste($event, decodeJWT)"></textarea>
+            <div class="btns">
+              <button class="btn primary" @click="decodeJWT">Decode (no verify)</button>
+              <button class="btn ghost" @click="copyToClipboard(jwt.header + '\n' + jwt.payload)">Copy</button>
+              <button class="btn ghost" @click="clearIO('jwt')">Clear</button>
+            </div>
+          </div>
+          <div>
+            <div>
+              <div class="label">Header</div>
+              <textarea v-model="jwt.header" readonly></textarea>
+            </div>
+            <div>
+              <div class="label">Payload</div>
+              <textarea v-model="jwt.payload" readonly></textarea>
+            </div>
+          </div>
+        </div>
+        <p class="footer">This does <strong>not</strong> verify the signature; it only decodes Base64URL segments. Never
+          trust decoded JWTs without verification.</p>
+      </section>
+
+      <!-- Timestamp Converter -->
+      <section v-if="current==='time'" class="section">
+        <h2>Timestamp ⇄ Date</h2>
+        <div class="grid-3">
+          <div>
+            <div class="label">Unix timestamp</div>
+            <input type="text" v-model="time.epoch" placeholder="Seconds or milliseconds"
+              @paste="handlePaste($event, epochToDate)" />
+            <div class="btns">
+              <button class="btn primary" @click="epochToDate">→ Date</button>
+              <button class="btn ghost" @click="copyToClipboard(time.date)">Copy date</button>
+            </div>
+          </div>
+          <div>
+            <div class="label">Date (local)</div>
+            <input type="text" v-model="time.date" placeholder="YYYY-MM-DD HH:mm:ss"
+              @paste="handlePaste($event, dateToEpoch)" />
+            <div class="btns">
+              <button class="btn primary" @click="dateToEpoch">→ Unix</button>
+              <button class="btn ghost" @click="copyToClipboard(time.epoch)">Copy epoch</button>
+            </div>
+          </div>
+          <div>
+            <div class="label">ISO String</div>
+            <input type="text" v-model="time.iso" readonly />
+            <div class="btns">
+              <button class="btn ghost" @click="copyToClipboard(time.iso)">Copy ISO</button>
+              <button class="btn ghost" @click="clearIO('time')">Clear</button>
+            </div>
+          </div>
+        </div>
+        <p class="footer">Parsing assumes your local timezone for the free‑form date → epoch conversion.</p>
+      </section>
+
+      <!-- Color Converter -->
+      <section v-if="current==='color'" class="section">
+        <h2>Color: HEX ⇄ RGB</h2>
+        <div class="two-col">
+          <div>
+            <div class="label">HEX (#rrggbb or #rgb)</div>
+            <input type="text" v-model="color.hex" placeholder="#3498db" @input="hexToRgb" />
+          </div>
+          <div>
+            <div class="label">RGB (r,g,b)</div>
+            <input type="text" v-model="color.rgb" placeholder="52,152,219" @input="rgbToHex" />
+          </div>
+        </div>
+        <div class="section" style="margin-top:14px; background:var(--panel-2);">
+          <div class="label">Preview</div>
+          <div :style="{height:'60px', borderRadius:'10px', border:'1px solid #2a3156', background: colorPreview}">
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script>
+    const { createApp, computed, nextTick } = Vue;
+
+    function b64ToUint8(base64) {
+      const bin = atob(base64);
+      const len = bin.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) bytes[i] = bin.charCodeAt(i);
+      return bytes;
+    }
+
+    const app = createApp({
+      data() {
+        return {
+          q: '',
+          current: 'base64',
+          tools: [
+            { key: 'base64', name: 'Base64 / Base64URL', icon: '🧱' },
+            { key: 'csvjson', name: 'CSV ⇄ JSON', icon: '🔁' },
+            { key: 'jsonfmt', name: 'JSON Pretty / Minify', icon: '🧩' },
+            { key: 'url', name: 'URL Encode / Decode', icon: '🔗' },
+            { key: 'html', name: 'HTML Encode / Decode', icon: '🄷' },
+            { key: 'uuid', name: 'UUID v4 Generator', icon: '🆔' },
+            { key: 'hash', name: 'Hash (SHA*)', icon: '🔒' },
+            { key: 'jwt', name: 'JWT Decode', icon: '🎫' },
+            { key: 'time', name: 'Timestamp ⇄ Date', icon: '⏱️' },
+            { key: 'color', name: 'Color HEX ⇄ RGB', icon: '🎨' },
+          ],
+          base64: { input: '', output: '' },
+          csvjson: { input: '', output: '', delim: 'auto', headers: true },
+          jsonfmt: { input: '', output: '' },
+          urltool: { input: '', output: '' },
+          htmltool: { input: '', output: '' },
+          uuid: { count: 10, output: '' },
+          hash: { input: '', output: '', algo: 'SHA-256' },
+          jwt: { input: '', header: '', payload: '' },
+          time: { epoch: '', date: '', iso: '' },
+          color: { hex: '#3498db', rgb: '52,152,219' }
+        }
+      },
+      computed: {
+        filteredTools() {
+          console.warn("Filtering tools based on query:", this.q);
+          const q = this.q.trim().toLowerCase();
+          if (!q) return this.tools;
+          return this.tools.filter(t => `${t.key} ${t.name}`.toLowerCase().includes(q));
+        },
+        colorPreview() {
+          return this.color.hex || `rgb(${this.color.rgb})`;
+        }
+      },
+      methods: {
+        // Generic paste helper: wait for v-model to update, then run action
+        handlePaste(evt, action) {
+          // Let the paste complete and model update
+          setTimeout(() => { try { action.call(this); } catch (e) { console.warn(e); } }, 0);
+        },
+
+        // Utilities
+        async copyToClipboard(text) {
+          try { await navigator.clipboard.writeText(text || ''); } catch (e) { alert('Copy failed: ' + e.message); }
+        },
+        download(name, content) {
+          const blob = new Blob([content || ''], { type: 'text/plain' });
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = typeof name === 'string' ? name : 'output.txt';
+          a.click();
+          URL.revokeObjectURL(a.href);
+        },
+        swapIO(key) {
+          const obj = this[key];
+          [obj.input, obj.output] = [obj.output, obj.input];
+        },
+        clearIO(key) {
+          const obj = this[key];
+          for (const k of Object.keys(obj)) if (typeof obj[k] === 'string') obj[k] = '';
+        },
+
+        // Base64
+        autoBase64() {
+          const s = (this.base64.input || '').trim();
+          if (!s) { this.base64.output = ''; return; }
+          // Heuristic: try URL-safe decode first if it looks base64-ish
+          const looksB64 = /^[A-Za-z0-9+\/_\-\s=]+$/.test(s) && s.replace(/\s+/g, '').length >= 8;
+          if (looksB64) {
+            try { this.decodeBase64(true); return; } catch (_) { }
+            try { this.decodeBase64(false); return; } catch (_) { }
+          }
+          this.encodeBase64(false);
+        },
+        encodeBase64(urlSafe) {
+          try {
+            const utf8 = new TextEncoder().encode(this.base64.input || '');
+            let str = '';
+            const chunk = 0x8000;
+            for (let i = 0; i < utf8.length; i += chunk) {
+              str += String.fromCharCode.apply(null, utf8.subarray(i, i + chunk));
+            }
+            let out = btoa(str);
+            if (urlSafe) out = out.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+            this.base64.output = out;
+          } catch (e) { this.base64.output = 'Error: ' + e.message; }
+        },
+        decodeBase64(urlSafe) {
+          try {
+            let s = (this.base64.input || '').trim();
+            if (urlSafe) { s = s.replace(/-/g, '+').replace(/_/g, '/'); }
+            s = s.replace(/\s+/g, '');
+            const pad = s.length % 4; if (pad) s += '='.repeat(4 - pad);
+            const bin = atob(s);
+            const bytes = new Uint8Array([...bin].map(ch => ch.charCodeAt(0)));
+            this.base64.output = new TextDecoder().decode(bytes);
+          } catch (e) { this.base64.output = 'Error: ' + e.message; }
+        },
+
+        // CSV ⇄ JSON
+        autoCSVJSON() {
+          const s = (this.csvjson.input || '').trim();
+          if (!s) { this.csvjson.output = ''; return; }
+          // Decide based on first non-space char
+          if (s[0] === '{' || s[0] === '[') this.toCSV(); else this.toJSON();
+        },
+        toJSON() {
+          const csv = this.csvjson.input || '';
+          const d = this.csvjson.delim === 'auto' ? this.detectDelimiter(csv) : this.csvjson.delim;
+          try {
+            const rows = this.parseCSV(csv, d);
+            if (!rows.length) return this.csvjson.output = '[]';
+            let headers = [];
+            if (this.csvjson.headers) { headers = rows.shift(); }
+            else { headers = rows[0].map((_, i) => 'col' + (i + 1)); }
+            const arr = rows.map(r => Object.fromEntries(headers.map((h, i) => [h, r[i] ?? ''])));
+            this.csvjson.output = JSON.stringify(arr, null, 2);
+          } catch (e) { this.csvjson.output = 'Error: ' + e.message; }
+        },
+        toCSV() {
+          try {
+            const data = JSON.parse(this.csvjson.input || '');
+            if (!Array.isArray(data)) throw new Error('Input JSON must be an array of objects');
+            const cols = Array.from(data.reduce((set, obj) => { Object.keys(obj || {}).forEach(k => set.add(k)); return set; }, new Set()));
+            const d = this.csvjson.delim === 'auto' ? ',' : this.csvjson.delim;
+            const esc = v => {
+              const s = v == null ? '' : String(v);
+              const needs = s.includes('"') || s.includes('\n') || s.includes('\r') || s.includes(d);
+              return needs ? '"' + s.replace(/"/g, '""') + '"' : s;
+            }
+            const lines = [cols.join(d), ...data.map(row => cols.map(c => esc(row[c])).join(d))];
+            this.csvjson.output = lines.join('\n');
+          } catch (e) { this.csvjson.output = 'Error: ' + e.message; }
+        },
+        detectDelimiter(text) {
+          const candidates = [',', ';', '\t', '|'];
+          const counts = { ',': 0, ';': 0, '\t': 0, '|': 0 };
+          let inQ = false, lines = 0;
+          for (let i = 0; i < text.length; i++) {
+            const c = text[i]; const n = text[i + 1];
+            if (c === '\n') { lines++; if (lines > 5) break; continue; }
+            if (inQ) { if (c === '"' && n === '"') { i++; continue; } if (c === '"') { inQ = false; } continue; }
+            if (c === '"') { inQ = true; continue; }
+            if (counts.hasOwnProperty(c)) counts[c]++;
+          }
+          let best = ','; let bestCount = -1;
+          for (const d of candidates) { if (counts[d] > bestCount) { best = d; bestCount = counts[d]; } }
+          return bestCount > 0 ? best : ',';
+        },
+        parseCSV(text, d) {
+          const rows = []; let cur = []; let val = ''; let i = 0; let inQ = false;
+          for (; i < text.length; i++) {
+            const c = text[i]; const n = text[i + 1];
+            if (inQ) {
+              if (c === '"' && n === '"') { val += '"'; i++; continue; }
+              if (c === '"') { inQ = false; continue; }
+              val += c; continue;
+            } else {
+              if (c === '"') { inQ = true; continue; }
+              if (c === d) { cur.push(val); val = ''; continue; }
+              if (c === '\n') { rows.push(cur.concat(val)); cur = []; val = ''; continue; }
+              if (c === '\r') { continue; }
+              val += c;
+            }
+          }
+          rows.push(cur.concat(val));
+          return rows;
+        },
+
+        // JSON fmt + string escaping
+        autoJSON() {
+          const s = (this.jsonfmt.input || '').trim();
+          if (!s) { this.jsonfmt.output = ''; return; }
+          // If looks like a bare JSON string with escapes, unescape; else pretty
+          const looksString = (s.startsWith('"') && s.endsWith('"')) || /\\[nrt"'\\u]/.test(s);
+          if (looksString && !s.trim().startsWith('{') && !s.trim().startsWith('[')) {
+            this.unescapeJSONString();
+          } else {
+            this.prettyJSON();
+          }
+        },
+        prettyJSON() {
+          try { this.jsonfmt.output = JSON.stringify(JSON.parse(this.jsonfmt.input), null, 2); }
+          catch (e) { this.jsonfmt.output = 'Parse error: ' + e.message; }
+        },
+        minifyJSON() {
+          try { this.jsonfmt.output = JSON.stringify(JSON.parse(this.jsonfmt.input)); }
+          catch (e) { this.jsonfmt.output = 'Parse error: ' + e.message; }
+        },
+        unescapeJSONString() {
+          try {
+            let s = this.jsonfmt.input;
+            // If not quoted, wrap so JSON.parse will unescape
+            if (!(s.startsWith('"') && s.endsWith('"'))) { s = '"' + s.replace(/"/g, '\\"') + '"'; }
+            const un = JSON.parse(s);
+            this.jsonfmt.output = un;
+          } catch (e) { this.jsonfmt.output = 'Unescape error: ' + e.message; }
+        },
+        escapeJSONString() {
+          try { this.jsonfmt.output = JSON.stringify(String(this.jsonfmt.input)); }
+          catch (e) { this.jsonfmt.output = 'Escape error: ' + e.message; }
+        },
+
+        // URL tool
+        autoURL() {
+          const s = this.urltool.input || '';
+          try { this.urltool.output = decodeURIComponent(s); }
+          catch (_) { this.urltool.output = encodeURIComponent(s); }
+        },
+        safeDecodeURIComponent() {
+          try { this.urltool.output = decodeURIComponent(this.urltool.input || ''); }
+          catch (e) { this.urltool.output = 'Decode error: ' + e.message; }
+        },
+
+        // HTML tool
+        autoHTML() {
+          const s = this.htmltool.input || '';
+          if (/&(?:lt|gt|amp|quot|#\d+);/.test(s)) this.htmlDecode(); else this.htmlEncode();
+        },
+        htmlEncode() {
+          const div = document.createElement('div');
+          div.innerText = this.htmltool.input || ''; // text -> entities
+          this.htmltool.output = div.innerHTML;
+        },
+        htmlDecode() {
+          const div = document.createElement('div');
+          div.innerHTML = this.htmltool.input || ''; // entities -> text
+          this.htmltool.output = div.innerText;
+        },
+
+        // UUID
+        genUUIDs() {
+          const n = Math.max(1, Math.min(1000, this.uuid.count | 0));
+          const out = [];
+          for (let i = 0; i < n; i++) out.push(self.crypto.randomUUID());
+          this.uuid.output = out.join('\n');
+        },
+
+        // Hash
+        async digest() {
+          try {
+            const enc = new TextEncoder().encode(this.hash.input || '');
+            const algo = this.hash.algo;
+            const buf = await crypto.subtle.digest(algo, enc);
+            const bytes = new Uint8Array(buf);
+            this.hash.output = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+          } catch (e) { this.hash.output = 'Error: ' + e.message; }
+        },
+
+        // JWT
+        decodeJWT() {
+          try {
+            const parts = (this.jwt.input || '').trim().split('.');
+            if (parts.length < 2) throw new Error('Not a JWT');
+            const dec = s => {
+              s = s.replace(/-/g, '+').replace(/_/g, '/');
+              const pad = s.length % 4; if (pad) s += '='.repeat(4 - pad);
+              const str = atob(s);
+              const bytes = new Uint8Array([...str].map(ch => ch.charCodeAt(0)));
+              return new TextDecoder().decode(bytes);
+            }
+            this.jwt.header = JSON.stringify(JSON.parse(dec(parts[0])), null, 2);
+            this.jwt.payload = JSON.stringify(JSON.parse(dec(parts[1])), null, 2);
+          } catch (e) { this.jwt.header = ''; this.jwt.payload = ''; alert('Decode error: ' + e.message); }
+        },
+
+        // Time
+        epochToDate() {
+          const s = String(this.time.epoch || '').trim();
+          if (!s) { this.time.date = ''; this.time.iso = ''; return; }
+          let num = Number(s);
+          if (!Number.isFinite(num)) { alert('Not a number'); return; }
+          if (s.length > 10) num = Math.round(num);
+          const ms = s.length <= 10 ? num * 1000 : num;
+          const d = new Date(ms);
+          if (isNaN(d.getTime())) { alert('Invalid timestamp'); return; }
+          this.time.date = d.toLocaleString();
+          this.time.iso = d.toISOString();
+        },
+        dateToEpoch() {
+          const d = new Date(this.time.date);
+          if (isNaN(d.getTime())) { alert('Could not parse date. Try e.g. 2025-08-11 13:37:00'); return; }
+          this.time.epoch = Math.floor(d.getTime() / 1000).toString();
+          this.time.iso = d.toISOString();
+        },
+
+        // Color
+        hexToRgb() {
+          let h = (this.color.hex || '').trim();
+          if (!h) return;
+          if (h[0] !== '#') h = '#' + h;
+          if (/^#([\da-fA-F]{3})$/.test(h)) {
+            const r = parseInt(h[1] + h[1], 16), g = parseInt(h[2] + h[2], 16), b = parseInt(h[3] + h[3], 16);
+            this.color.rgb = `${r},${g},${b}`; this.color.hex = h; return;
+          }
+          const m = h.match(/^#([\da-fA-F]{2})([\da-fA-F]{2})([\da-fA-F]{2})$/);
+          if (m) { const r = parseInt(m[1], 16), g = parseInt(m[2], 16), b = parseInt(m[3], 16); this.color.rgb = `${r},${g},${b}`; this.color.hex = h; }
+        },
+        rgbToHex() {
+          const m = (this.color.rgb || '').match(/(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})/);
+          if (!m) return;
+          const clamp = v => Math.max(0, Math.min(255, Number(v)));
+          const r = clamp(m[1]), g = clamp(m[2]), b = clamp(m[3]);
+          this.color.hex = '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+        }
+      },
+      watch: {
+        current(newVal) {
+          if (newVal === 'uuid' && !this.uuid.output) {
+            this.genUUIDs();
+          }
+        }
+      },
+      mounted() {
+        // Init color preview sync
+        this.hexToRgb();
+      }
+    });
+
+    app.mount('body');
+  </script>
+</body>
+
+</html>
