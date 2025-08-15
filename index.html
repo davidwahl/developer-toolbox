@@ -23,15 +23,8 @@
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", "Apple Color Emoji", "Segoe UI Emoji";
     }
 
-    * {
-      box-sizing: border-box
-    }
-
-    html,
-    body {
-      height: 100%
-    }
-
+    * { box-sizing: border-box }
+    html, body { height: 100% }
     body {
       margin: 0;
       background: radial-gradient(1200px 800px at 80% -200px, rgba(122, 162, 255, .25), transparent 60%),
@@ -40,246 +33,53 @@
       color: var(--text);
       font-family: var(--sans)
     }
+    header { position: sticky; top: 0; z-index: 5; background: rgba(15, 18, 32, .8); backdrop-filter: blur(10px); border-bottom: 1px solid #232844; padding: 10px 16px; display: flex; align-items: center; gap: 12px; }
+    header h1 { font-size: 21px; margin: 0; letter-spacing: .3px }
+    header .search { margin-left: auto; }
+    .search input { width: 280px; max-width: 45vw; padding: 10px 12px; border-radius: 10px; outline: none; border: 1px solid #2a3156; background: #0f1326; color: var(--text) }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 5;
-      background: rgba(15, 18, 32, .8);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #232844;
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .layout { display: grid; grid-template-columns: 260px 1fr; gap: var(--gap); padding: var(--gap) }
+    aside { background: var(--panel); border: 1px solid #232844; border-radius: var(--radius); box-shadow: var(--shadow); height: calc(100dvh - 74px); position: sticky; top: 74px; overflow: auto }
+    main { min-height: calc(100dvh - 74px) }
+    .brand { padding: 14px 14px 0; font-size: 12px; color: var(--muted) }
+    .tool-list { list-style: none; padding: 8px; margin: 0; display: grid; gap: 8px }
+    .tool-list button { width: 100%; text-align: left; border: none; padding: 12px; border-radius: 12px; background: transparent; color: var(--text); cursor: pointer; transition: .15s ease; border: 1px solid transparent }
+    .tool-list button:hover { background: var(--panel-2) }
+    .tool-list button.active { background: linear-gradient(180deg, #1c2342, #141a31); border-color: #2d3561 }
 
-    header h1 {
-      font-size: 21px;
-      margin: 0;
-      letter-spacing: .3px
-    }
+    .section { background: var(--panel); border: 1px solid #232844; border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-bottom: var(--gap) }
+    .section h2 { margin: 0 0 8px }
 
-    header .search {
-      margin-left: auto;
-    }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap) }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap) }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap) }
 
-    .search input {
-      width: 280px;
-      max-width: 45vw;
-      padding: 10px 12px;
-      border-radius: 10px;
-      outline: none;
-      border: 1px solid #2a3156;
-      background: #0f1326;
-      color: var(--text)
+    textarea, input[type="text"], input[type="number"], select {
+      width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid #2a3156; outline: none; background: #0f1326; color: var(--text); font-family: var(--mono); font-size: 13px
     }
+    textarea { min-height: 180px; resize: vertical }
 
-    .layout {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: var(--gap);
-      padding: var(--gap)
-    }
+    .btns { display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0 0 }
+    .btn { padding: 10px 12px; border-radius: 10px; border: 1px solid #2a3156; background: #121832; color: var(--text); cursor: pointer }
+    .btn.primary { background: linear-gradient(180deg, #3b61ff, #2746dd); border-color: #3152ff }
+    .btn.ghost { background: transparent }
+    .btn.warn { background: #2b2414; border-color: #5a4b1a; color: #ffd166 }
+    .btn.danger { background: #2b1518; border-color: #6b232a; color: #ff7b86 }
 
-    aside {
-      background: var(--panel);
-      border: 1px solid #232844;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      height: calc(100dvh - 74px);
-      position: sticky;
-      top: 74px;
-      overflow: auto
-    }
+    .kbd { font-family: var(--mono); font-size: 12px; border: 1px solid #2a3156; padding: 2px 6px; border-radius: 6px; background: #0f1326; color: var(--muted) }
+    .label { font-size: 12px; color: var(--muted); margin-bottom: 6px }
+    .footer { color: var(--muted); font-size: 12px; padding: 8px 2px 16px }
+    .input-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center }
+    .output { background: #0f1326; border: 1px solid #2a3156; border-radius: 10px; padding: 10px; min-height: 120px; font-family: var(--mono); overflow: auto }
 
-    main {
-      min-height: calc(100dvh - 74px)
-    }
-
-    .brand {
-      padding: 14px 14px 0;
-      font-size: 12px;
-      color: var(--muted)
-    }
-
-    .tool-list {
-      list-style: none;
-      padding: 8px;
-      margin: 0;
-      display: grid;
-      gap: 8px
-    }
-
-    .tool-list button {
-      width: 100%;
-      text-align: left;
-      border: none;
-      padding: 12px;
-      border-radius: 12px;
-      background: transparent;
-      color: var(--text);
-      cursor: pointer;
-      transition: .15s ease;
-      border: 1px solid transparent
-    }
-
-    .tool-list button:hover {
-      background: var(--panel-2)
-    }
-
-    .tool-list button.active {
-      background: linear-gradient(180deg, #1c2342, #141a31);
-      border-color: #2d3561
-    }
-
-    .section {
-      background: var(--panel);
-      border: 1px solid #232844;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 16px;
-      margin-bottom: var(--gap)
-    }
-
-    .section h2 {
-      margin: 0 0 8px
-    }
-
-    .row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--gap)
-    }
-
-    textarea,
-    input[type="text"],
-    input[type="number"],
-    select {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid #2a3156;
-      outline: none;
-      background: #0f1326;
-      color: var(--text);
-      font-family: var(--mono);
-      font-size: 13px
-    }
-
-    textarea {
-      min-height: 180px;
-      resize: vertical
-    }
-
-    .btns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 10px 0 0
-    }
-
-    .btn {
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid #2a3156;
-      background: #121832;
-      color: var(--text);
-      cursor: pointer
-    }
-
-    .btn.primary {
-      background: linear-gradient(180deg, #3b61ff, #2746dd);
-      border-color: #3152ff
-    }
-
-    .btn.ghost {
-      background: transparent
-    }
-
-    .btn.warn {
-      background: #2b2414;
-      border-color: #5a4b1a;
-      color: #ffd166
-    }
-
-    .btn.danger {
-      background: #2b1518;
-      border-color: #6b232a;
-      color: #ff7b86
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--gap)
-    }
-
-    .kbd {
-      font-family: var(--mono);
-      font-size: 12px;
-      border: 1px solid #2a3156;
-      padding: 2px 6px;
-      border-radius: 6px;
-      background: #0f1326;
-      color: var(--muted)
-    }
-
-    .label {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 6px
-    }
-
-    .footer {
-      color: var(--muted);
-      font-size: 12px;
-      padding: 8px 2px 16px
-    }
-
-    .input-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      align-items: center
-    }
-
-    .output {
-      background: #0f1326;
-      border: 1px solid #2a3156;
-      border-radius: 10px;
-      padding: 10px;
-      min-height: 120px;
-      font-family: var(--mono);
-      overflow: auto
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--gap)
-    }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 6px }
+    .stat { font-size: 12px; display: inline-block; padding: 4px 8px; border: 1px solid #2a3156; border-radius: 999px; background: #0f1326; margin-right: 8px }
 
     @media (max-width: 1080px) {
-      .layout {
-        grid-template-columns: 1fr
-      }
-
-      aside {
-        position: static;
-        height: auto
-      }
-
-      .row,
-      .two-col,
-      .grid-3 {
-        grid-template-columns: 1fr
-      }
-
-      .search input {
-        max-width: 100%;
-        width: 100%
-      }
+      .layout { grid-template-columns: 1fr }
+      aside { position: static; height: auto }
+      .row, .two-col, .grid-3 { grid-template-columns: 1fr }
+      .search input { max-width: 100%; width: 100% }
     }
   </style>
 </head>
@@ -288,14 +88,14 @@
   <header>
     <h1>🧰 The Developer Toolbox</h1>
     <div class="search">
-      <input v-model="q" type="text" placeholder="Quick switch: type to filter tools (e.g. base64, csv, json)..." />
+      <input v-model="q" type="text" placeholder="Quick switch: type to filter tools (e.g. base64, csv, json, pass)..." />
     </div>
   </header>
 
   <div id="app" class="layout">
     <aside>
       <div class="brand">TOOLS</div>
-      <ul class="tool-list">        
+      <ul class="tool-list">
         <li v-for="t in filteredTools" :key="t.key">
           <button :class="{active: current===t.key}" @click="current=t.key">{{t.icon}} {{t.name}}</button>
         </li>
@@ -303,6 +103,65 @@
     </aside>
 
     <main>
+      <!-- Password Generator -->
+      <section v-if="current==='pwd'" class="section">
+        <h2>Password Generator</h2>
+        <div class="two-col">
+          <div>
+            <div class="label">Options</div>
+            <div class="grid-3">
+              <div>
+                <div class="label">Length</div>
+                <input type="number" v-model.number="pwd.length" min="4" max="128" />
+                <div class="btns" style="margin-top:8px">
+                  <button class="btn kbd" @click="pwd.length=12">12</button>
+                  <button class="btn kbd" @click="pwd.length=16">16</button>
+                  <button class="btn kbd" @click="pwd.length=24">24</button>
+                </div>
+              </div>
+              <div>
+                <div class="label">Count</div>
+                <input type="number" v-model.number="pwd.count" min="1" max="200" />
+              </div>
+              <div>
+                <div class="label">Include</div>
+                <label class="kbd"><input type="checkbox" v-model="pwd.lower" /> a–z</label>
+                <label class="kbd"><input type="checkbox" v-model="pwd.upper" /> A–Z</label>
+                <label class="kbd"><input type="checkbox" v-model="pwd.digits" /> 0–9</label>
+                <label class="kbd"><input type="checkbox" v-model="pwd.symbols" /> Symbols</label>
+              </div>
+            </div>
+
+            <div class="btns" style="margin-top:10px">
+              <label class="kbd"><input type="checkbox" v-model="pwd.excludeSimilar" /> Exclude similar (O0oIl1|S5B8)</label>
+              <label class="kbd"><input type="checkbox" v-model="pwd.noAmbiguous" /> No ambiguous symbols</label>
+              <label class="kbd"><input type="checkbox" v-model="pwd.requireEach" /> Require 1 of each selected</label>
+            </div>
+
+            <div class="btns" style="margin-top:12px">
+              <button class="btn primary" @click="generatePasswords">Generate</button>
+              <button class="btn ghost" @click="copyToClipboard(pwd.output)">Copy</button>
+              <button class="btn ghost" @click="download('passwords.txt', pwd.output)">Download</button>
+              <button class="btn ghost" @click="pwd.output=''">Clear</button>
+            </div>
+
+            <div class="hint">
+              <span class="stat">Pool: {{pwd.poolSize}} chars</span>
+              <span class="stat">Entropy ≈ {{pwd.entropyBits}} bits</span>
+              <span class="stat">Strength: {{pwd.strengthLabel}}</span>
+            </div>
+          </div>
+          <div>
+            <div class="label">Output (one per line)</div>
+            <textarea v-model="pwd.output" readonly placeholder="Generated passwords will appear here…"></textarea>
+          </div>
+        </div>
+        <p class="footer">
+          Uses browser’s secure RNG (<code>crypto.getRandomValues</code>). Entropy is a simple estimate: <code>L · log2(pool)</code>.
+          For account security, prefer a unique password per site + a password manager.
+        </p>
+      </section>
+
       <!-- Base64 Encoder/Decoder -->
       <section v-if="current==='base64'" class="section">
         <h2>Base64 / Base64URL Encode & Decode</h2>
@@ -326,7 +185,7 @@
             <textarea v-model="base64.output" placeholder="Result shows here…" readonly></textarea>
           </div>
         </div>
-        <p class="footer">Uses UTF‑8 encode/decode. Tries to auto-detect on paste and decode if possible; otherwise it
+        <p class="footer">Uses UTF-8 encode/decode. Tries to auto-detect on paste and decode if possible; otherwise it
           will encode.</p>
       </section>
 
@@ -452,7 +311,7 @@
 
       <!-- Hash (SHA*) -->
       <section v-if="current==='hash'" class="section">
-        <h2>Hash (SHA‑1/256/384/512)</h2>
+        <h2>Hash (SHA-1/256/384/512)</h2>
         <div class="two-col">
           <div>
             <div class="label">Text to hash</div>
@@ -539,7 +398,7 @@
             </div>
           </div>
         </div>
-        <p class="footer">Parsing assumes your local timezone for the free‑form date → epoch conversion.</p>
+        <p class="footer">Parsing assumes your local timezone for the free-form date → epoch conversion.</p>
       </section>
 
       <!-- Color Converter -->
@@ -581,19 +440,38 @@
       data() {
         return {
           q: '',
-          current: 'base64',
-          tools: [
+          current: 'base64', // default to new tool once to show it off
+          tools: [            
             { key: 'base64', name: 'Base64 / Base64URL', icon: '🧱' },
             { key: 'csvjson', name: 'CSV ⇄ JSON', icon: '🔁' },
             { key: 'jsonfmt', name: 'JSON Pretty / Minify', icon: '🧩' },
             { key: 'url', name: 'URL Encode / Decode', icon: '🔗' },
             { key: 'html', name: 'HTML Encode / Decode', icon: '🄷' },
             { key: 'uuid', name: 'UUID v4 Generator', icon: '🆔' },
+            { key: 'pwd', name: 'Password Generator', icon: '🔐' },            
             { key: 'hash', name: 'Hash (SHA*)', icon: '🔒' },
             { key: 'jwt', name: 'JWT Decode', icon: '🎫' },
             { key: 'time', name: 'Timestamp ⇄ Date', icon: '⏱️' },
             { key: 'color', name: 'Color HEX ⇄ RGB', icon: '🎨' },
           ],
+
+          // Password generator state
+          pwd: {
+            length: 16,
+            count: 10,
+            lower: true,
+            upper: true,
+            digits: true,
+            symbols: true,
+            excludeSimilar: true,
+            noAmbiguous: true,
+            requireEach: true,
+            output: '',
+            poolSize: 0,
+            entropyBits: 0,
+            strengthLabel: '—'
+          },
+
           base64: { input: '', output: '' },
           csvjson: { input: '', output: '', delim: 'auto', headers: true },
           jsonfmt: { input: '', output: '' },
@@ -608,7 +486,6 @@
       },
       computed: {
         filteredTools() {
-          console.warn("Filtering tools based on query:", this.q);
           const q = this.q.trim().toLowerCase();
           if (!q) return this.tools;
           return this.tools.filter(t => `${t.key} ${t.name}`.toLowerCase().includes(q));
@@ -620,7 +497,6 @@
       methods: {
         // Generic paste helper: wait for v-model to update, then run action
         handlePaste(evt, action) {
-          // Let the paste complete and model update
           setTimeout(() => { try { action.call(this); } catch (e) { console.warn(e); } }, 0);
         },
 
@@ -645,11 +521,110 @@
           for (const k of Object.keys(obj)) if (typeof obj[k] === 'string') obj[k] = '';
         },
 
+        /* ========== Password Generator ========== */
+        buildCharPool() {
+          let lowers = 'abcdefghijklmnopqrstuvwxyz';
+          let uppers = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+          let digits = '0123456789';
+          let symbols = `!@#$%^&*+-=_?:`;
+          // Full symbol set candidates (we'll drop "ambiguous" if requested)
+          const extraSymbols = `~|/\\'"\`,.;:<>[]{}()`;
+
+          const similar = new Set(['O','0','o','I','l','1','|','S','5','B','8','G','6','Z','2']);
+          if (this.pwd.excludeSimilar) {
+            const stripSimilar = s => [...s].filter(ch => !similar.has(ch)).join('');
+            lowers = stripSimilar(lowers);
+            uppers = stripSimilar(uppers);
+            digits = stripSimilar(digits);
+            symbols = stripSimilar(symbols);
+          }
+
+          if (!this.pwd.noAmbiguous) {
+            symbols += extraSymbols;
+          }
+
+          const sets = [];
+          if (this.pwd.lower) sets.push(lowers);
+          if (this.pwd.upper) sets.push(uppers);
+          if (this.pwd.digits) sets.push(digits);
+          if (this.pwd.symbols) sets.push(symbols);
+
+          const pool = [...new Set(sets.join(''))].join('');
+          return { pool, sets };
+        },
+        randInt(max) {
+          // secure 0..max-1
+          if (max <= 0) return 0;
+          const buf = new Uint32Array(1);
+          let x;
+          const limit = Math.floor(0xFFFFFFFF / max) * max; // rejection sampling to reduce bias
+          do {
+            crypto.getRandomValues(buf);
+            x = buf[0] >>> 0;
+          } while (x >= limit);
+          return x % max;
+        },
+        shuffle(arr) {
+          for (let i = arr.length - 1; i > 0; i--) {
+            const j = this.randInt(i + 1);
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+          }
+          return arr;
+        },
+        generateOnePassword() {
+          const L = Math.max(4, Math.min(128, this.pwd.length | 0));
+          const { pool, sets } = this.buildCharPool();
+          if (!pool.length) throw new Error('Select at least one character set.');
+
+          const chars = [];
+          if (this.pwd.requireEach && sets.length > 0) {
+            // Ensure at least one char from each selected set
+            for (const s of sets) {
+              chars.push(s[this.randInt(s.length)]);
+            }
+          }
+          // Fill the rest from the full pool
+          while (chars.length < L) {
+            chars.push(pool[this.randInt(pool.length)]);
+          }
+          // Shuffle to avoid predictable positions
+          this.shuffle(chars);
+          return chars.slice(0, L).join('');
+        },
+        updateEntropy() {
+          const { pool } = this.buildCharPool();
+          const L = Math.max(4, Math.min(128, this.pwd.length | 0));
+          const poolSize = pool.length;
+          this.pwd.poolSize = poolSize;
+
+          // Simple lower bound estimate (ignores "requireEach" constraint reduction)
+          const bits = poolSize > 0 ? Math.round(L * Math.log2(poolSize)) : 0;
+          this.pwd.entropyBits = bits;
+
+          // Quick label
+          let label = 'Weak';
+          if (bits >= 60) label = 'Okay';
+          if (bits >= 80) label = 'Strong';
+          if (bits >= 100) label = 'Very strong';
+          if (bits >= 128) label = 'Ridiculous 😅';
+          this.pwd.strengthLabel = label;
+        },
+        generatePasswords() {
+          try {
+            const n = Math.max(1, Math.min(200, this.pwd.count | 0));
+            const out = [];
+            for (let i = 0; i < n; i++) out.push(this.generateOnePassword());
+            this.pwd.output = out.join('\n');
+            this.updateEntropy();
+          } catch (e) {
+            alert('Generate error: ' + e.message);
+          }
+        },
+
         // Base64
         autoBase64() {
           const s = (this.base64.input || '').trim();
           if (!s) { this.base64.output = ''; return; }
-          // Heuristic: try URL-safe decode first if it looks base64-ish
           const looksB64 = /^[A-Za-z0-9+\/_\-\s=]+$/.test(s) && s.replace(/\s+/g, '').length >= 8;
           if (looksB64) {
             try { this.decodeBase64(true); return; } catch (_) { }
@@ -686,7 +661,6 @@
         autoCSVJSON() {
           const s = (this.csvjson.input || '').trim();
           if (!s) { this.csvjson.output = ''; return; }
-          // Decide based on first non-space char
           if (s[0] === '{' || s[0] === '[') this.toCSV(); else this.toJSON();
         },
         toJSON() {
@@ -756,7 +730,6 @@
         autoJSON() {
           const s = (this.jsonfmt.input || '').trim();
           if (!s) { this.jsonfmt.output = ''; return; }
-          // If looks like a bare JSON string with escapes, unescape; else pretty
           const looksString = (s.startsWith('"') && s.endsWith('"')) || /\\[nrt"'\\u]/.test(s);
           if (looksString && !s.trim().startsWith('{') && !s.trim().startsWith('[')) {
             this.unescapeJSONString();
@@ -775,7 +748,6 @@
         unescapeJSONString() {
           try {
             let s = this.jsonfmt.input;
-            // If not quoted, wrap so JSON.parse will unescape
             if (!(s.startsWith('"') && s.endsWith('"'))) { s = '"' + s.replace(/"/g, '\\"') + '"'; }
             const un = JSON.parse(s);
             this.jsonfmt.output = un;
@@ -804,12 +776,12 @@
         },
         htmlEncode() {
           const div = document.createElement('div');
-          div.innerText = this.htmltool.input || ''; // text -> entities
+          div.innerText = this.htmltool.input || '';
           this.htmltool.output = div.innerHTML;
         },
         htmlDecode() {
           const div = document.createElement('div');
-          div.innerHTML = this.htmltool.input || ''; // entities -> text
+          div.innerHTML = this.htmltool.input || '';
           this.htmltool.output = div.innerText;
         },
 
@@ -894,16 +866,28 @@
           if (newVal === 'uuid' && !this.uuid.output) {
             this.genUUIDs();
           }
-        }
+          if (newVal === 'pwd' && !this.pwd.output) {
+            this.updateEntropy();
+            this.generatePasswords();
+          }
+        },
+        // Recompute entropy when options change
+        'pwd.length': 'updateEntropy',
+        'pwd.lower': 'updateEntropy',
+        'pwd.upper': 'updateEntropy',
+        'pwd.digits': 'updateEntropy',
+        'pwd.symbols': 'updateEntropy',
+        'pwd.excludeSimilar': 'updateEntropy',
+        'pwd.noAmbiguous': 'updateEntropy',
       },
       mounted() {
-        // Init color preview sync
         this.hexToRgb();
+        // Initialize pwd stats right away
+        this.updateEntropy();
       }
     });
 
     app.mount('body');
   </script>
 </body>
-
 </html>
